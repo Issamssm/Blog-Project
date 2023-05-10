@@ -1,0 +1,160 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="dark-theme">
+
+    {% include 'blog/header.html' %}
+
+    <main>
+
+        <div class="main">
+
+            <div class="container">
+
+
+                <div class="blog">
+
+                    <h2 class="h2">Profile</h2>
+                    {% if messages %}
+                    {% for message in messages %}
+
+                    <span class="h2 successe-message">{{message}}</span>
+
+                    {% endfor %}
+                    {% endif %}
+                    <div class="blog-card-group">
+
+                        <div class="blog-card2">
+
+                            <div class="blog-content-wrapper">
+
+                                <div class="wrapper-flex1">
+
+                                    <div class="profile-wrapper2">
+                                        <img src="{{user.profile.image.url}}" alt="image user" width="50">
+                                    </div>
+
+                                    <div class="wrapper1">
+                                        <span class="h4">Username : {{user.username}}</span>
+
+                                        <p class="text-sm">
+                                            <span style="color:var(--foreground-secondary);">First Name :
+                                                {{user.first_name}}</span>
+                                        </p>
+
+                                        <p class="text-sm">
+                                            <span style="color:var(--foreground-secondary);">Last Name :
+                                                {{user.last_name}}</span>
+                                        </p>
+
+                                        <p class="blog-text">
+                                            Email : {{user.email}}
+                                        </p>
+                                    </div>
+
+                                    <div>
+
+                                        <button class="edit"><a href="{% url 'profile_update' %}">Edit</a></button>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        <!-- comments -->
+                        <div class="blog">
+
+                            <h2 class="h2">My Post ( {{post_list.count}} )</h2>
+                            {% for post in posts %}
+                            <div class="blog-card-group">
+
+
+                                <div class="blog-card">
+
+                                    <div class="blog-card-banner">
+                                        <img src="{{post.image.url}}"
+                                            alt="Building microservices with Dropwizard, MongoDB & Docker" width="250"
+                                            class="blog-banner-img">
+                                    </div>
+
+                                    <div class="blog-content-wrapper">
+
+                                        <span class="blog-topic text-tiny">{{post.categry}}</span>
+
+                                        <h3>
+                                            <a href="{% url 'detaile' post.id %}" class="h3">
+                                                {{post.title}}
+                                            </a>
+                                        </h3>
+
+                                        <p class="blog-text">
+                                            {% if post.content|length > 100 %}
+                                            {{post.content|slice:'150'}}...
+                                            {% else %}
+                                            {{post.content}}
+                                            {% endif %}
+                                        </p>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            {% empty %}
+                            <div class="blog-card-group">
+
+
+                                <div class="blog-card">
+
+                                    <div class="blog-content-wrapper">
+
+                                        <h3>
+                                            <span class="h3">
+                                                No posts
+                                            </span>
+                                        </h3>
+
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            {% endfor %}
+
+                            {% if posts.paginator.num_pages > 1 %}
+
+                                {% include 'blog/pagination.html' with page=posts%}
+
+                            {% endif %}
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                {% include 'blog/component.html' %}
+
+            </div>
+
+        </div>
+
+    </main>
+
+    {% include 'blog/footer.html' %}
+
+    <!-- javascripts  -->
+    <script src="{% static 'js/scriptblogger.js'%}"></script>
+    <script src="{% static 'js/scriptlabel.js'%}"></script>
+    <!--- ionicon link -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+{% endblock content %}

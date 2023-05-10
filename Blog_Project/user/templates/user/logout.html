@@ -1,0 +1,102 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="dark-theme">
+
+    {% include 'blog/header.html' %}
+
+    <main>
+
+        <div class="main">
+
+            <div class="container">
+
+
+                <div class="blog">
+
+                    <div class="blog-card-group">
+
+                        <!-- Add comment -->
+                        <div class="blog-card3" style="padding:60px 25px;">
+                            <h2 class="h2">Logout successfully</h2>
+
+
+
+
+                            <div class="logout">
+
+                                <button class="btn load-more"><a style="color: rgb(0, 0, 0);width:100%;" href="{% url 'login' %}">Log in</a></button>
+                                <button class="btn load-more"><a style="color: rgb(0, 0, 0);width:100%;" href="{% url 'register' %}">Register</a></button>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+
+                <div class="aside">
+
+                    <div class="contact">
+
+                        <h2 class="h2">Let's Talk</h2>
+
+                        <div class="wrapper">
+
+                            <p>
+                                Do you want to learn more about how I can help your company overcome problems? Let us
+                                have a
+                                conversation.
+                            </p>
+
+                            <ul class="social-link">
+
+                                <li>
+                                    <a href="#" class="icon-box discord">
+                                        <ion-icon name="logo-discord"></ion-icon>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="icon-box twitter">
+                                        <ion-icon name="logo-twitter"></ion-icon>
+                                    </a>
+                                </li>
+
+                                <li>
+                                    <a href="#" class="icon-box facebook">
+                                        <ion-icon name="logo-facebook"></ion-icon>
+                                    </a>
+                                </li>
+
+                            </ul>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+    {% include 'blog/footer.html' %}
+
+    <!-- javascripts  -->
+    <script src="{% static 'js/scriptblogger.js'%}"></script>
+    <script src="{% static 'js/scriptlabel.js'%}"></script>
+    <!--- ionicon link -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+{% endblock content %}
