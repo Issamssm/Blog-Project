@@ -1,0 +1,172 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="dark-theme">
+
+    {% include 'blog/header.html' %}
+
+    <main>
+
+        <div class="hero">
+
+            <div class="container">
+
+                <div class="left">
+                    {% if messages %}
+                    {% for message in messages %}
+
+                    <p class="h3" style="border-radius: 15px;background-color: #0097009c;padding: 5px;">
+                        {{message}}
+                    </p>
+                    {% endfor %}
+                    {% endif %}
+
+                    {% if user.is_authenticated %}
+                    <h1 class="h1">
+                        Hi, <b>{{user.username}}</b>.
+                        <br>Welcome Back
+                    </h1>
+                    {% else %}
+                    <h1 class="h1">
+                        Hi, I am <b>Goku</b>.
+                        <br>
+                    </h1>
+                    {% endif %}
+                    <p class="h3">
+                        Welcome to <abbr title="Accessibility">Blogger</abbr>
+                        , let's post
+                    </p>
+
+                    <div class="btn-group">
+                        <a href="{% url 'contact' %}" class="btn btn-primary">Contact Me</a>
+                        {% if user.is_authenticated %}
+                        <a href="{% url 'new_post' %}" class="btn btn-secondary">New Post</a>
+                        {% endif %}
+                    </div>
+
+                </div>
+
+                <div class="right">
+
+                    <div class="pattern-bg"></div>
+                    <div class="img-box">
+                        <img src="{% static 'images/goku.png'%}" alt="Julia Walker" class="hero-img">
+                        <div class="shape shape-1"></div>
+                        <div class="shape shape-2"></div>
+                    </div>
+
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="main">
+
+            <div class="container">
+
+
+                <div class="blog">
+
+                    <h2 class="h2">Latest Blog Post</h2>
+                    {% for post in l_post %}
+                    <div class="blog-card-group">
+
+
+                        <div class="blog-card">
+
+                            <div class="blog-card-banner">
+                                <img src="{{post.image.url}}"
+                                    alt="Building microservices with Dropwizard, MongoDB & Docker" width="250"
+                                    class="blog-banner-img">
+                            </div>
+
+                            <div class="blog-content-wrapper">
+
+                                <span class="blog-topic text-tiny">{{post.categry}}</span>
+
+                                <h3>
+                                    <a href="{% url 'detaile' post.id %}" class="h3">
+                                        {{post.title}}
+                                    </a>
+                                </h3>
+
+                                <p class="blog-text">
+                                    {% if post.content|length > 100 %}
+                                    {{post.content|slice:'95'}}...
+                                    {% else %}
+                                    {{post.content}}
+                                    {% endif %}
+                                </p>
+
+                                <div class="wrapper-flex">
+
+                                    <div class="profile-wrapper">
+                                        <img src="{{post.author.profile.image.url}}" alt="user profile" width="50">
+                                    </div>
+
+                                    <div class="wrapper">
+                                        <span class="h4">{{post.author}}</span>
+
+                                        <p class="text-sm">
+                                            <time datetime="2022-01-17">{{post.post_date|date:'d-m-Y'}}</time>
+                                            <time>{{post.post_date|time:'H:i'}}</time>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    {% empty %}
+                    <div class="blog-card-group">
+
+
+                        <div class="blog-card">
+
+                            <div class="blog-content-wrapper">
+
+                                <h3>
+                                    <span class="h3">
+                                        No posts
+                                    </span>
+                                </h3>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+                    {% endfor %}
+
+                    {% if l_post.paginator.num_pages > 1 %}
+                    
+                        {% include 'blog/pagination.html' with page=l_post%}
+
+                    {% endif %}
+                </div>
+
+                {% include 'blog/component.html' %}
+
+            </div>
+
+        </div>
+
+    </main>
+
+    {% include 'blog/footer.html' %}
+
+    <!-- javascripts  -->
+    <script src="{% static 'js/scriptblogger.js'%}"></script>
+    <!--- ionicon link -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+{% endblock content %}

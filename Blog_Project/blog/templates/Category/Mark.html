@@ -1,0 +1,122 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="dark-theme">
+
+    {% include 'blog/header.html' %}
+
+    <main>
+
+        <div class="main">
+
+            <div class="container">
+
+
+                <div class="blog">
+
+                    <h2 class="h2">{{title}}</h2>
+                    {% for post in l_post %}
+                    <div class="blog-card-group">
+
+                        
+                        <div class="blog-card">
+
+                            <div class="blog-card-banner">
+                                <img src="{{post.image.url}}"
+                                    alt="Building microservices with Dropwizard, MongoDB & Docker" width="250"
+                                    class="blog-banner-img">
+                            </div>
+
+                            <div class="blog-content-wrapper">
+
+                                <span class="blog-topic text-tiny">{{post.categry}}</span>
+
+                                <h3>
+                                    <a href="{% url 'detaile' post.id %}" class="h3">
+                                        {{post.title}}
+                                    </a>
+                                </h3>
+
+                                <p class="blog-text">
+                                    {% if post.content|length > 100 %}
+                                    {{post.content|slice:'150'}}...
+                                    {% else %}
+                                    {{post.content}}
+                                    {% endif %}
+                                </p>
+
+                                <div class="wrapper-flex">
+
+                                    <div class="profile-wrapper">
+                                        <img src="{{post.author.profile.image.url}}" alt="Julia Walker" width="50">
+                                    </div>
+
+                                    <div class="wrapper">
+                                        <span class="h4">{{post.author}}</span>
+
+                                        <p class="text-sm">
+                                            <time datetime="2022-01-17">{{post.post_date|date:'d-m-Y'}}</time>
+                                            <time>{{post.post_date|time:'H:i'}}</time>
+
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                    
+                    {% empty %}
+                    <div class="blog-card-group">
+
+                        
+                        <div class="blog-card" style="margin-bottom: 0;">
+
+                            <div class="blog-content-wrapper">
+
+                                <h3>
+                                    <span class="h3">
+                                        No Articls
+                                    </span>
+                                </h3>
+
+
+                            </div>
+
+                        </div>
+                        
+                    </div>
+                    {% endfor %}
+                            {% if l_post.paginator.num_pages > 1 %}
+
+                                {% include 'blog/pagination.html' with page=posts%}
+
+                            {% endif %}
+
+                </div>
+
+
+                {% include 'blog/component.html' %}
+
+            </div>
+
+        </div>
+
+    </main>
+
+    {% include 'blog/footer.html' %}
+
+    <!-- javascripts  -->
+    <script src="{% static 'js/scriptblogger.js'%}"></script>
+    <!--- ionicon link -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+{% endblock content %}

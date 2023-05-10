@@ -1,0 +1,111 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="dark-theme">
+
+    {% include 'blog/header.html' %}
+
+    <main>
+
+        <div class="main">
+
+            <div class="container">
+
+
+                <div class="blog">
+
+                    <div class="blog-card-group">
+
+                        <!-- Add comment -->
+                        <div class="blog-card3" style=" padding:80px 25px;">
+                            <h2 class="h2">Contact Us</h2>
+                            {% if messages %}
+                            {% for message in messages %}
+
+                            <h2 style="color: green;">{{message}}</h2>
+
+                            {% endfor %}
+                            {% endif %}
+
+
+                            <div class="blog-content-wrapper">
+
+                                <form method="POST" id="contact-form">
+                                    {% csrf_token %}
+                                    <label for="id_body" class="h4">Name:</label>
+                                    <input type="text" name="user_name" cols="40" rows="10" required id="text">
+                                    <label for="id_body" class="h4">Email:</label>
+                                    <input type="email" name="user_email" cols="40" rows="10" required id="email">
+                                    <label for="id_body" class="h4">massege:</label>
+                                    <textarea name="message" cols="40" rows="10" required id="message"
+                                        style="margin-bottom: 25px;"></textarea>
+
+                                    <button type="submit" class="button-contact">
+                                        send message
+                                    </button>
+                                    <p id="contact-message"></p>
+                                </form>
+
+                            </div>
+
+                        </div>
+
+                    </div>
+
+                </div>
+
+            </div>
+
+
+        </div>
+
+    </main>
+
+    {% include 'blog/footer.html' %}
+
+    <!-- javascripts  -->
+    <script src="{% static 'js/scriptblogger.js'%}"></script>
+    <script src="{% static 'js/scriptlabel.js'%}"></script>
+    <script>
+        // EMAIL JS
+        // complete you information 'service id' , 'template id' and 'Public Key' from https://www.emailjs.com/
+
+        const contactForm = document.getElementById('contact-form'),
+            contactMessage = document.getElementById('contact-message')
+
+
+
+        const sendEmail = (e) => {
+            e.preventDefault()
+
+            emailjs.sendForm('service id', 'template id', '#contact-form', 'Public Key')
+                .then(() => {
+
+                    contactMessage.textContent = 'Message sent successfully '
+
+                    setTimeout(() => {
+                        contactMessage.textContent = ''
+                    }, 5000)
+
+                    contactForm.reset()
+
+                }, () => {
+
+                    contactMessage.textContent = 'Message not sent (service error)'
+                })
+        }
+
+        contactForm.addEventListener('submit', sendEmail)
+
+    </script>
+
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@3/dist/email.min.js"></script>
+    <!--- ionicon link -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+{% endblock content %}

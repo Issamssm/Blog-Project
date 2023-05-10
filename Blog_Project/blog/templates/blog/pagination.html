@@ -1,0 +1,29 @@
+                    
+                    <div class="container-paginate">
+                        {% if page.has_previous %}
+                        <button class="button-paginate prevNext active1" id="prev" >
+                            <a href="?page={{page.previous_page_number}}">Prev</a>
+                            
+                        </button>
+                        {% else %}
+                        <button disabled class="button-paginate prevNext disabled" id="prev" >
+                            <a href="#">Prev</a>
+                            
+                        </button>
+                        {% endif %}
+                        
+                        <div class="links-paginate">
+                            page {{page.number}} of {{page.paginator.num_pages}}
+                        </div>
+
+                        {% if page.has_next %}
+                        <button class="button-paginate prevNext active1" id="next">
+                            <a href="?page={{page.next_page_number}}">Next</a>
+                        </button>
+                        {% else %}
+                        <button disabled class="button-paginate disabled prevNext" id="next">
+                            <a href="#">Next</a>
+                        </button>
+                        {% endif %}
+                    </div> 
+                    

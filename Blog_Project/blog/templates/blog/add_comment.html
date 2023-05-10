@@ -1,0 +1,18 @@
+                        {% if user.is_authenticated %}
+                        <div class="blog-card3">
+                            <h2 class="h2">Add Comment</h2>
+
+                            <div class="blog-content-wrapper">
+
+                                <form method="post" style="height:270px;">
+                                    {% csrf_token %}
+                                    {% comment %} {{comment_form}} {% endcomment %}
+                                    <label for="id_body" class="h4">Comment:</label>
+                                    <textarea name="body" cols="40" rows="10" required id="body"></textarea>
+                                    <input type="submit" value="Submit">
+                                </form>
+
+                            </div>
+
+                        </div>
+                        {% endif %}

@@ -1,0 +1,161 @@
+{% extends 'blog/base.html' %}
+{% load static %}
+{% block content %}
+
+<body class="dark-theme">
+
+    {% include 'blog/header.html' %}
+
+    <main>
+
+        <div class="main">
+
+            <div class="container">
+
+
+                <div class="blog">
+
+                    <h2 class="h2">{{post.title}}</h2>
+                    <div class="blog-card-group">
+
+                        <div class="blog-card2">
+
+                            <div class="blog-card-banner">
+                                <img src="{{post.image.url}}"
+                                    alt="Building microservices with Dropwizard, MongoDB & Docker" width="250"
+                                    class="blog-banner-img">
+                            </div>
+
+                            <div class="blog-content-wrapper">
+
+                                <span class="blog-topic text-tiny">{{post.categry}}</span>
+
+                                <h3>
+                                    <span class="h3">
+                                        {{post.title1}}
+                                    </span>
+                                </h3>
+
+                                <p class="blog-text">
+                                    {{post.content}}
+                                </p>
+                                {% if post.image2 %}
+                                <div class="blog-card-banner" style="margin-top:19px;margin-bottom:17px;">
+                                    <img src="{{post.image2.url}}"
+                                        alt="Building microservices with Dropwizard, MongoDB & Docker" width="250"
+                                        class="blog-banner-img">
+                                </div>
+                                {% endif %}
+
+                                <h3>
+                                    <span class="h3">
+                                        {{post.title2}}
+                                    </span>
+                                </h3>
+
+                                <p class="blog-text">
+                                    {{post.content2}}
+                                </p>
+
+                                <div class="wrapper-flex">
+
+                                    <div class="profile-wrapper">
+                                        <img src="{{post.author.profile.image.url}}" alt="Julia Walker" width="50">
+                                    </div>
+
+                                    <div class="wrapper">
+                                        <span class="h4">{{post.author}}</span>
+
+                                        <p class="text-sm">
+                                            <time datetime="2022-01-17">{{post.post_date|date:'d-m-Y'}}</time>
+                                            <time>{{post.post_date|time:'H:i'}}</time>
+                                        </p>
+                                    </div>
+
+                                </div>
+
+                                {% if post.author == user %}
+
+                                <div class="wrapper-flex">
+
+                                    <div class="wrapper2">
+                                        <button class="btn3 edit-blog"><a
+                                                href="{% url 'post_update' post.pk %}">Edit</a></button>
+                                        <button class="btn3 delete"><a
+                                                href="{% url 'post_delete' post.pk %}">Delete</a></button>
+                                    </div>
+
+                                </div>
+
+                                {% endif %}
+
+                            </div>
+
+                        </div>
+                        <!-- comments -->
+                        <div class="blog-card3">
+                            <h2 class="h2">Comments ({{comments.count}})</h2>
+                            {% for comment in comments %}
+
+                            <div class="blog-content-wrapper-comment">
+
+                                <h3>
+                                    <span class="h3">
+                                        {{comment.name}}
+                                        <span style="font-size: var(--fs-4);color: var(--foreground-tertiary);"
+                                            datetime="2022-01-17">{{comment.coment_date|date:'d-m-Y'}}</span>
+                                        <span
+                                            style="font-size: var(--fs-4);color: var(--foreground-tertiary);">{{comment.coment_date|time:'H:i'}}</span>
+                                    </span>
+                                </h3>
+
+
+
+                                <p class="blog-text">
+                                    {{comment.body}}
+                                </p>
+
+                            </div>
+
+                            {% empty %}
+
+                            <div class="blog-content-wrapper">
+
+                                <h2 class="h4">
+                                    No comments
+                                </h2>
+
+                            </div>
+
+                            {% endfor %}
+
+                        </div>
+                        <!-- Add comment -->
+                        {% include 'blog/add_comment.html' %}
+
+                    </div>
+
+                </div>
+
+
+                {% include 'blog/component.html' %}
+
+            </div>
+
+        </div>
+
+    </main>
+
+    {% include 'blog/footer.html' %}
+
+    <!-- javascripts  -->
+    <script src="{% static 'js/scriptblogger.js'%}"></script>
+    <script src="{% static 'js/scriptlabel.js'%}"></script>
+    <!--- ionicon link -->
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
+{% endblock content %}

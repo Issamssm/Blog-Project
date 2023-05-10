@@ -1,0 +1,153 @@
+{% load static %}
+<header>
+
+  <div class="container">
+
+    <nav class="navbar">
+      
+      <a href="{% url 'home' %}">
+        <img src="{% static 'images/logo-light.svg'%}" alt="Devblog's logo" class="logo-light">
+        <img src="{% static 'images/logo-dark.svg'%}" alt="Devblog's logo" class="logo-dark">
+      </a>
+
+      <div class="btn-group">
+        <button class="theme-btn theme-btn-mobile dark">
+          <ion-icon name="moon" class="moon"></ion-icon>
+          <ion-icon name="sunny" class="sun"></ion-icon>
+        </button>
+
+        <button class="nav-menu-btn">
+          <ion-icon name="menu-outline"></ion-icon>
+        </button>
+
+      </div>
+
+      <div class="flex-wrapper">
+
+        {% if user.is_authenticated %}
+        <ul class="desktop-nav">
+
+          <li>
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+          </li>
+
+          <li>
+            <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+          </li>
+          
+          <li>
+            <a href="{% url 'new_post' %}" class="nav-link">New Post</a>
+          </li>
+
+          <li>
+            <a href="{% url 'logout' %}" class="nav-link">Logout</a>
+          </li>
+
+        </ul>
+        {% else %}
+        <ul class="desktop-nav">
+
+          <li>
+            <a href="{% url 'home' %}" class="nav-link">Home</a>
+          </li>
+
+          <li>
+            <a href="{% url 'login' %}" class="nav-link">Login</a>
+          </li>
+
+          <li>
+            <a href="{% url 'register' %}" class="nav-link">Register</a>
+          </li>
+
+        </ul>
+
+        {% endif %}
+
+
+        <button class="theme-btn theme-btn-desktop dark">
+          <ion-icon name="moon" class="moon"></ion-icon>
+          <ion-icon name="sunny" class="sun"></ion-icon>
+        </button>
+
+      </div>
+
+
+      <div class="mobile-nav">
+
+        <button class="nav-close-btn">
+          <ion-icon name="close-outline"></ion-icon>
+        </button>
+
+        <div class="wrapper">
+
+          <p class="h3 nav-title">Main Menu</p>
+          {% if user.is_authenticated %}
+          <ul>
+            <li class="nav-item">
+              <a href="{% url 'home' %}" class="nav-link">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'profile' %}" class="nav-link">Profile</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'new_post' %}" class="nav-link">New Post</a>
+            </li>
+
+          </ul>
+          {% else %}
+          <ul>
+
+            <li>
+              <a href="{% url 'home' %}" class="nav-link">Home</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'login' %}" class="nav-link">Login</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'register' %}" class="nav-link">Register</a>
+            </li>
+          </ul>
+          {% endif %}
+        </div>
+
+        <div class="topics">
+
+          <p class="h3 nav-title">Topics</p>
+
+          <ul>
+            <li class="nav-item">
+              <a href="{% url 'programming' %}" class="nav-link">Developpment</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'EH' %}" class="nav-link">Ethical Hacking</a>
+            </li>
+
+            <li class="nav-item">
+              <a href="{% url 'Marketing'%}" class="nav-link">Marketing</a>
+            </li>
+          </ul>
+
+        </div>
+        {% if user.is_authenticated %}
+
+        <div>
+
+          <button class="btn2"><a href="{% url 'logout' %}">Logout</a></button>
+
+        </div>
+
+
+        {% endif %}
+
+      </div>
+
+    </nav>
+
+  </div>
+
+</header>
